@@ -1,0 +1,51 @@
+* {
+  margin: 10px 0px;
+  padding: 0;
+}
+body {
+  font-family: arial;
+  margin: 10px;
+}
+div {
+  padding: 10px;
+}
+pre {
+  width: 60%;
+  outline: 1px solid #333333;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.bgColor {
+  background-color: #d4abd7;
+}
+
+.blinking {
+  animation: blinkingText 1.2s infinite;
+}
+@keyframes blinkingText {
+  0% {
+    color: #000;
+  }
+  49% {
+    color: #000;
+  }
+  60% {
+    color: transparent;
+  }
+  99% {
+    color: transparent;
+  }
+  100% {
+    color: #000;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  h3,
+  div,
+  pre {
+    width: 90%;
+    padding: 10px;
+    margin: 0px auto;
+  }
+}

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Front-end Questions</title>
+	<link rel="stylesheet" href="css/custom.css" />
+</head>
+
+<body>
+
+	<h2>Questions Front-end developers</h2>
+
+	<h3>Web application performance: web pages response time can be improved by 25 to 50 percent by this rules</h3>
+	<pre>
+1) Minimize HTTP requests.
+2) Use a content delivery network - Users request redirected to their nearest servers.
+3) Add an Expires or a Cache-Control header.
+5) Put stylesheets at the top.
+6) Put scripts at the bottom.
+7) Make JavaScript and CSS external
+8) Avoid CSS expressions.
+9) Optimize the size of images on your website:
+	The best way to reduce the image size without compromising its quality is to compress images using such tools as ImageOptim, JPEGmini, or Kraken.
+	Another way to reduce the image size is to use the HTML responsive images and attributes that adjust image size based on user display properties.
+10) Reduce the number of plugins
+11) Minimize the number of javascript and css files
+12) Use website caching
+13) Reduce use of web fonts like WOFF2 for faster page rendering
+14) Reduce redirects - Redirection create additional http requests which negative impact performance
+15) Use cookie-free domain components
+16) Gzip components.
+</pre>
+
+	<h3>Programmming paradigms</h3>
+	<pre>
+<b>Imperative: Object Oriented programming</b>
+
+let arr = [1,2,3,4,5];
+arr2 = [];
+for(let i = 0;i&lt;arr.length;i++){
+	arr[i] = arr[i]*2;
+}
+console.log(arr2);
+
+<b>Declarative: functional programming</b>
+
+let arr = [1,2,3,4,5];
+arr2 = arr.map(function(v, i){
+	return v*2;
+});
+console.log(arr2);
+</pre>
+
+	<h3>Design patterns javascript</h3>
+	<pre>
+1) Module design pattern - function variable with self invoking having all the methods encapsulated inside it
+	create functions as module where we can 
+2) Prototype
+	TeslaModelS.prototype.go = function() {
+		// Rotate wheels
+	}
+
+3) Singleton:
+	A Singleton only allows for a single instantiation, but many instances of the same object. 
+	The Singleton restricts clients from creating multiple objects, after the first object created, it will return instances of itself.
+	
+	var officePrinter = printer.getInstance();
+	
+	
+4) Observer - There are many times when one part of the application changes, other parts needs to be updated.
+	var Subject = function() {
+		this.observers = [];
+		return {
+			subscribeObserver: function(observer) {
+				this.observers.push(observer);
+			}
+		};
+	};
+	
+	var Observer = function() {
+	  return {
+		notify: function(index) {
+		  console.log("Observer " + index + " is notified!");
+		}
+	  }
+	}
+	
+	var subject = new Subject();
+	var observer1 = new Observer();
+subject.subscribeObserver(observer1);
+</pre>
+
+	<h3>Different ways to create an object:</h3>
+	<pre>
+1) Object Literals.
+	var car = {
+		model: 'bmw',
+		color: 'red',
+		price: 2000
+	}
+	
+2) New operator or constructor.
+	function Car(model, color) {
+		this.model = model;
+		this.color = color;
+	}
+	var c1 = new Car('BMW', 'red');
+	
+3) Object.create method.
+	var Car = {
+		model: 'BMW',
+		color: 'red'
+	}
+	var ElectricCar = Object.create(Car);
+	console.log(ElectricCar.model); // BMW
+	
+4) Class.
+	class Car {
+		constructor(maker, price) {
+			this.maker = maker;
+			this.price = price;
+		}
+		getInfo() {
+			console.log(this.maker + " costs : " + this.price);
+		}
+	}
+</pre>
+
+
+	<h3>Observables and Promises</h3>
+	<pre>
+An Observable is like a Stream (in many languages) and allows to pass zero or more events where the callback is called for each event. 
+Often Observable is preferred over Promise because it provides the features of Promise and more. 
+With Observable it doesn't matter if you want to handle 0, 1, or multiple events.
+Observable also has the advantage over Promise to be cancelable.
+If the result of an HTTP request to a server or some other expensive async operation isn't needed anymore, 
+the Subscription of an Observable allows to cancel the subscription, 
+while a Promise will eventually call the success or failed callback even when you don't need the notification or the result it provides anymore.
+Promise is always asynchronous, while an Observable can be either synchronous or asynchronous.
+	
+Promise
+A Promise handles a single event when an async operation completes or fails. Promise is always asynchronous and non-cancelable.
+Once the operation started whether it gives resolve/success or reject/failure
+</pre>
+
+	<h3>ES6 includes the following new features:</h3>
+	<pre>
+arrows function
+classes
+enhanced object literals
+template strings
+destructuring
+default + rest + spread
+let + const
+iterators + for..of
+promises
+generators
+unicode
+modules
+module loaders
+map + set + weakmap + weakset
+proxies
+symbols
+subclassable built-ins
+math + number + string + array + object APIs
+binary and octal literals
+reflect api
+tail calls
+</pre>
+
+	<h3>Rest and Spread operators</h3>
+	<pre>
+Rest operator: The ...rest must always be last.
+	function showName(firstName, lastName, ...titles) {
+	  alert( firstName + ' ' + lastName ); // Julius Caesar
+	  // the rest go into titles array
+	  // i.e. titles = ["Consul", "Imperator"]
+	  alert( titles[0] ); // Consul
+	  alert( titles[1] ); // Imperator
+	}
+	showName("Julius", "Caesar", "Consul", "Imperator");
+
+Spread operator: 
+let arr = [3, 5, 1];
+let arr2 = [8, 9, 15];
+let merged = [...arr, ...arr2];
+console.log(merged); // 3,5,1,8,9,15
+</pre>
+
+	<h2>RXJS</h2>
+	<div class="bgColor">
+		<h3>BehaviourSubject</h3>
+		<div>
+			The BehaviorSubject has the characteristic that it stores the “current” value. This means that you can
+			always directly get the last emitted value from the BehaviorSubject.
+			<pre>
+		import * as Rx from "rxjs";
+
+		const subject = new Rx.BehaviorSubject(Math.random());
+
+		// subscriber 1
+		subject.subscribe((data) => {
+			console.log('Subscriber A:', data);
+		});
+
+		// output
+		// Subscriber A: 0.24957144215097515
+	</pre>
+		</div>
+
+		<h3>ReplaySubject</h3>
+		<div>
+			The ReplaySubject is comparable to the BehaviorSubject in the way that it can send “old” values to new
+			subscribers.
+			It however has the extra characteristic that it can record a part of the observable execution and therefore
+			store multiple old values and “replay” them to new subscribers.
+			When creating the ReplaySubject you can specify how much values you want to store and for how long you want
+			to store them.
+		</div>
+		<pre>
+	import * as Rx from "rxjs";
+
+	const subject = new Rx.ReplaySubject(2);
+
+	// subscriber 1
+	subject.subscribe((data) => {
+		console.log('Subscriber A:', data);
+	});
+
+	subject.next(Math.random())
+	subject.next(Math.random())
+	subject.next(Math.random())
+
+	// subscriber 2
+	subject.subscribe((data) => {
+		console.log('Subscriber B:', data);
+	});
+
+	subject.next(Math.random());
+
+	// Subscriber A: 0.3541746356538569
+	// Subscriber A: 0.12137498878080955
+	// Subscriber A: 0.531935186034298
+	// Subscriber B: 0.12137498878080955
+	// Subscriber B: 0.531935186034298
+	// Subscriber A: 0.6664809293975393
+	// Subscriber B: 0.6664809293975393
+</pre>
+
+		<h3>AsyncSubject</h3>
+		<div>
+			While the BehaviorSubject and ReplaySubject both store values, the AsyncSubject works a bit different.
+			The AsyncSubject is aSubject variant where only the last value of the Observable execution is sent to its
+			subscribers, and only when the execution completes.
+		</div>
+		<pre>
+import * as Rx from "rxjs";
+
+const subject = new Rx.AsyncSubject();
+
+// subscriber 1
+subject.subscribe((data) => {
+	console.log('Subscriber A:', data);
+});
+
+subject.next(Math.random())
+subject.next(Math.random())
+subject.next(Math.random())
+
+// subscriber 2
+subject.subscribe((data) => {
+	console.log('Subscriber B:', data);
+});
+
+subject.next(Math.random());
+subject.complete();
+
+// Subscriber A: 0.4447275989704571
+// Subscriber B: 0.4447275989704571
+</pre>
+	</div>
+
+	<h2>Fixing CORS Issues in Your Front-End Angular 7/8 App with Angular CLI Proxy Configuration</h2>
+	<div>
+		<a href="https://www.techiediaries.com/fix-cors-with-angular-cli-proxy-configuration/"
+			rel="noreferrer noopener"></a>
+	</div>
+	<pre>
+<b>Step 1 - Create a Proxy Configuration File(src/proxy.conf.json)</b>
+{
+    "/api/*": {
+        "target": "http://localhost:3000",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
+This configuration file specifies that any HTTP request which starts with the /app/ path will be sent to the proxy which will redirect it to the target hostname.
+The secure option is used to enforce usage of SSL.
+
+<b>Step 2 - Add a proxyConfig key to angular.json</b>
+Next, open the angular.json file and add a proxyConfig key under the serve->options that points to the src/proxy.conf.json file as follows:
+"architect": {
+  "serve": {
+    "builder": "@angular-devkit/build-angular:dev-server",
+    "options": {
+      "browserTarget": "your-application-name:build",
+      "proxyConfig": "src/proxy.conf.json"
+    },
+
+<b>Step 3 - Serving your Angular App (ng serve)</b>
+</pre>
+</body>
+
+</html>
