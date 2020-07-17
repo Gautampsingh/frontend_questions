@@ -55,79 +55,72 @@ console.log(arr2);
 
 	<h3>Design patterns javascript</h3>
 	<pre>
-1) Module design pattern - function variable with self invoking having all the methods encapsulated inside it
+1) <b>Module design pattern</b>:  Function variable with self invoking having all the methods encapsulated inside it
 	create functions as module where we can 
-2) Prototype
+2) <b>Prototype</b>
 	TeslaModelS.prototype.go = function() {
 		// Rotate wheels
 	}
-
-3) Singleton:
-	A Singleton only allows for a single instantiation, but many instances of the same object. 
+3) <b>Singleton</b>: A Singleton only allows for a single instantiation, but many instances of the same object. 
 	The Singleton restricts clients from creating multiple objects, after the first object created, it will return instances of itself.
-	
 	var officePrinter = printer.getInstance();
-	
-	
-4) Observer - There are many times when one part of the application changes, other parts needs to be updated.
-	var Subject = function() {
-		this.observers = [];
-		return {
-			subscribeObserver: function(observer) {
-				this.observers.push(observer);
-			}
-		};
-	};
-	
-	var Observer = function() {
-	  return {
-		notify: function(index) {
-		  console.log("Observer " + index + " is notified!");
+4) <b>Observer</b>: There are many times when one part of the application changes, other parts needs to be updated.
+var Subject = function() {
+	this.observers = [];
+	return {
+		subscribeObserver: function(observer) {
+			this.observers.push(observer);
 		}
-	  }
+	};
+};
+
+var Observer = function() {
+	return {
+	notify: function(index) {
+		console.log("Observer " + index + " is notified!");
 	}
-	
-	var subject = new Subject();
-	var observer1 = new Observer();
+	}
+}
+
+var subject = new Subject();
+var observer1 = new Observer();
 subject.subscribeObserver(observer1);
 </pre>
 
 	<h3>Different ways to create an object:</h3>
 	<pre>
-1) Object Literals.
-	var car = {
-		model: 'bmw',
-		color: 'red',
-		price: 2000
-	}
+1) <b>Object Literals</b>
+var car = {
+	model: 'bmw',
+	color: 'red',
+	price: 2000
+}
 	
-2) New operator or constructor.
-	function Car(model, color) {
-		this.model = model;
-		this.color = color;
-	}
-	var c1 = new Car('BMW', 'red');
+2) <b>New operator or constructor</b>
+function Car(model, color) {
+	this.model = model;
+	this.color = color;
+}
+var c1 = new Car('BMW', 'red');
 	
-3) Object.create method.
-	var Car = {
-		model: 'BMW',
-		color: 'red'
+3) <b>Object.create method</b>
+var Car = {
+	model: 'BMW',
+	color: 'red'
+}
+var ElectricCar = Object.create(Car);
+console.log(ElectricCar.model); // BMW
+4) <b>Class</b>
+class Car {
+	constructor(maker, price) {
+		this.maker = maker;
+		this.price = price;
 	}
-	var ElectricCar = Object.create(Car);
-	console.log(ElectricCar.model); // BMW
-	
-4) Class.
-	class Car {
-		constructor(maker, price) {
-			this.maker = maker;
-			this.price = price;
-		}
-		getInfo() {
-			console.log(this.maker + " costs : " + this.price);
-		}
+	getInfo() {
+		console.log(this.maker + " costs : " + this.price);
 	}
+}
 </pre>
-
 
 	<h3>Observables and Promises</h3>
 	<pre>
@@ -172,17 +165,17 @@ tail calls
 
 	<h3>Rest and Spread operators</h3>
 	<pre>
-Rest operator: The ...rest must always be last.
-	function showName(firstName, lastName, ...titles) {
-	  alert( firstName + ' ' + lastName ); // Julius Caesar
-	  // the rest go into titles array
-	  // i.e. titles = ["Consul", "Imperator"]
-	  alert( titles[0] ); // Consul
-	  alert( titles[1] ); // Imperator
-	}
-	showName("Julius", "Caesar", "Consul", "Imperator");
+<b>Rest operator</b>: The ...rest must always be last.
+function showName(firstName, lastName, ...titles) {
+	alert( firstName + ' ' + lastName ); // Julius Caesar
+	// the rest go into titles array
+	// i.e. titles = ["Consul", "Imperator"]
+	alert( titles[0] ); // Consul
+	alert( titles[1] ); // Imperator
+}
+showName("Julius", "Caesar", "Consul", "Imperator");
 
-Spread operator: 
+<b>Spread operator</b> 
 let arr = [3, 5, 1];
 let arr2 = [8, 9, 15];
 let merged = [...arr, ...arr2];
@@ -196,18 +189,18 @@ console.log(merged); // 3,5,1,8,9,15
 			The BehaviorSubject has the characteristic that it stores the “current” value. This means that you can
 			always directly get the last emitted value from the BehaviorSubject.
 			<pre>
-		import * as Rx from "rxjs";
+import * as Rx from "rxjs";
 
-		const subject = new Rx.BehaviorSubject(Math.random());
+const subject = new Rx.BehaviorSubject(Math.random());
 
-		// subscriber 1
-		subject.subscribe((data) => {
-			console.log('Subscriber A:', data);
-		});
+// subscriber 1
+subject.subscribe((data) => {
+console.log('Subscriber A:', data);
+});
 
-		// output
-		// Subscriber A: 0.24957144215097515
-	</pre>
+// output
+// Subscriber A: 0.24957144215097515
+</pre>
 		</div>
 
 		<h3>ReplaySubject</h3>
@@ -220,33 +213,33 @@ console.log(merged); // 3,5,1,8,9,15
 			to store them.
 		</div>
 		<pre>
-	import * as Rx from "rxjs";
+import * as Rx from "rxjs";
 
-	const subject = new Rx.ReplaySubject(2);
+const subject = new Rx.ReplaySubject(2);
 
-	// subscriber 1
-	subject.subscribe((data) => {
-		console.log('Subscriber A:', data);
-	});
+// subscriber 1
+subject.subscribe((data) => {
+console.log('Subscriber A:', data);
+});
 
-	subject.next(Math.random())
-	subject.next(Math.random())
-	subject.next(Math.random())
+subject.next(Math.random())
+subject.next(Math.random())
+subject.next(Math.random())
 
-	// subscriber 2
-	subject.subscribe((data) => {
-		console.log('Subscriber B:', data);
-	});
+// subscriber 2
+subject.subscribe((data) => {
+console.log('Subscriber B:', data);
+});
 
-	subject.next(Math.random());
+subject.next(Math.random());
 
-	// Subscriber A: 0.3541746356538569
-	// Subscriber A: 0.12137498878080955
-	// Subscriber A: 0.531935186034298
-	// Subscriber B: 0.12137498878080955
-	// Subscriber B: 0.531935186034298
-	// Subscriber A: 0.6664809293975393
-	// Subscriber B: 0.6664809293975393
+// Subscriber A: 0.3541746356538569
+// Subscriber A: 0.12137498878080955
+// Subscriber A: 0.531935186034298
+// Subscriber B: 0.12137498878080955
+// Subscriber B: 0.531935186034298
+// Subscriber A: 0.6664809293975393
+// Subscriber B: 0.6664809293975393
 </pre>
 
 		<h3>AsyncSubject</h3>
@@ -262,7 +255,7 @@ const subject = new Rx.AsyncSubject();
 
 // subscriber 1
 subject.subscribe((data) => {
-	console.log('Subscriber A:', data);
+console.log('Subscriber A:', data);
 });
 
 subject.next(Math.random())
@@ -271,7 +264,7 @@ subject.next(Math.random())
 
 // subscriber 2
 subject.subscribe((data) => {
-	console.log('Subscriber B:', data);
+console.log('Subscriber B:', data);
 });
 
 subject.next(Math.random());
