@@ -184,6 +184,27 @@ console.log(merged); // 3,5,1,8,9,15
 
 	<h2>RXJS</h2>
 	<div class="bgColor">
+		<h3>Subject</h3>
+		<div>
+			A special type of Observable which shares a single execution path among observers
+
+			<pre>
+import { Subject } from 'rxjs';
+
+const sub = new Subject();
+
+sub.next(1);
+sub.subscribe(x => {
+console.log('Subscriber A', x);
+});
+sub.next(2); // OUTPUT => Subscriber A 2
+sub.subscribe(x => {
+console.log('Subscriber B', x);
+});
+sub.next(3); // OUTPUT => Subscriber A 3, Subscriber B 3 (logged from both subscribers)
+</pre>
+		</div>
+
 		<h3>BehaviourSubject</h3>
 		<div>
 			The BehaviorSubject has the characteristic that it stores the “current” value. This means that you can
@@ -304,6 +325,127 @@ Next, open the angular.json file and add a proxyConfig key under the serve->opti
 
 <b>Step 3 - Serving your Angular App (ng serve)</b>
 </pre>
+
+	<h2>6 Ways to Unsubscribe from Observables in Angular</h2>
+	<pre>
+<b>Use the unsubscribe method</b>
+@Component({...})
+export class AppComponent implements OnInit, OnDestroy {
+    subscription: Subscription 
+    ngOnInit () {
+        var observable = Rx.Observable.interval(1000);
+        this.subscription = observable.subscribe(x => console.log(x));
+    }
+    ngOnDestroy() {
+        this.subscription.unsubscribe()
+    }
+}
+
+<b>Use Async | Pipe</b>
+@Component({
+...,
+template: `
+<span>Interval: {{observable$ | async}}</span>
+`
+})
+export class AppComponent implements OnInit {
+	observable$
+	ngOnInit () {
+		this.observable$ = Rx.Observable.interval(1000);
+	}
+}
+
+<b>Use RxJS take* operators</b>
+take(n):
+@Component({
+    ...
+})
+export class AppComponent implements OnInit, OnDestroy {
+    subscription$
+    ngOnInit () {
+        var observable$ = Rx.Observable.interval(1000);
+        this.subscription$ = observable$.pipe(take(1)).
+        subscribe(x => console.log(x))
+    }
+    ngOnDestroy() {
+        this.subscription$.unsubscribe()
+    }
+}
+
+takeUntil(notifier):
+@Component({...})
+export class AppComponent implements OnInit, OnDestroy {
+    notifier = new Subject()
+    ngOnInit () {
+        var observable$ = Rx.Observable.interval(1000);
+        observable$.pipe(takeUntil(this.notifier))
+        .subscribe(x => console.log(x));
+    }
+    ngOnDestroy() {
+        this.notifier.next()
+        this.notifier.complete()
+    }
+}
+
+takeWhile(predicate):
+@Component({...})
+export class AppComponent implements OnInit {
+    ngOnInit () {
+        var observable$ = Rx.Observable.interval(1000);
+        observable$.pipe(takeWhile(value => value < 10))
+        .subscribe(x => console.log(x));
+    }
+}
+
+<b>Use RxJS first operator</b>
+This operator is like the concatenation of take(1) and takeWhile.
+If called with no value, it emits the first value emitted by the source Observable and completes.
+@Component({...})
+export class AppComponent implements OnInit {
+    observable$
+    ngOnInit () {
+        this.observable = Rx.Observable.interval(1000);
+        this.observable$.pipe(first())
+        .subscribe(x => console.log(x));
+    }
+}
+
+<b>Use Decorator to automate Unsubscription</b>
+function AutoUnsub() {
+    return function(constructor) {
+        const orig = constructor.prototype.ngOnDestroy
+        constructor.prototype.ngOnDestroy = function() {
+            for(const prop in this) {
+                const property = this[prop]
+                if(typeof property.subscribe === "function") {
+                    property.unsubscribe()
+                }
+            }
+            orig.apply()
+        }
+    }
+}
+
+This AutoUnsub is a class decorator that can be applied to classes in our Angular project.
+See, it saves the original ngOnDestroy hook, then creates a new one and hook it into the class it is applied on.
+So, when the class is being destroyed the new hook is called.
+Inside it, the functions scan through the properties of the class, if it finds an Observable property it will unsubscribe from it.
+Then it calls the original ngOnDestroy hook in the class if present.
+
+@Component({
+    ...
+})
+@AutoUnsub
+export class AppComponent implements OnInit {
+    observable$
+    ngOnInit () {
+        this.observable$ = Rx.Observable.interval(1000);
+        this.observable$.subscribe(x => console.log(x))
+    }
+}
+
+</pre>
+
 </body>
 
 </html>
