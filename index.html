@@ -15,6 +15,12 @@
     <![endif]-->
 
 	<title>Frontend questions by Gautampsingh</title>
+	<style>
+		::selection {
+			background-color: #ffd723;
+			color: #ff0000;
+		}
+	</style>
 </head>
 
 <body>
@@ -55,6 +61,29 @@
 				</div>
 				</p>
 
+				<h3>Common Cross Browser Compatibility Issues to Avoid</h3>
+				<pre>
+1. Lack of Testing on Real Devices:
+	Try testing on real devices
+2. HTML/ CSS Validation
+Code validating tools for HTML and CSS. Consider using W3C HTML validator and Jigsaw CSS validator.
+3. Vendor-specific functions
+	Safari and Chrome (-webkit)
+	Internet Explorer (-ms)
+	Mozilla Firefox (-moz)
+	Opera (-o)
+4. DOCTYPE Error
+	Doctype is checked because a browser operates in two modes – Strict Mode and Quirks Mode
+	In Strict Mode, the browser works with much stricter checks for code errors to make sure that the code is in accordance with W3C specifications.
+	Quirks Mode provides backward compatibility to older browser versions and do not perform such meticulous code error checks.
+5. Outdated Browser Detection: JavaScript failure to detect browser
+	one can remove the browser detection by using Modernizer, a set of “superfast tests” that enumerate all browser features, thus facilitating a seamless experience.
+6. Missing CSS Resets: Override default browser layouts
+	Resolving this issue simply requires the websites rendered to be reset to the same basics. Developers can use CSS reset style sheets for this purpose.
+	Commonly used reset style sheets include Eric Meyers CSS Reset, HTML5Reset, and the Github based Normalize.css.
+7. Layout Compatibility
+	When working with modern layouts, it is better to use tools such as CSS grids and Flexbox.
+</pre>
 
 				<h3>Web application performance: web pages response time can be improved by 25 to 50 percent by this
 					rules</h3>
@@ -77,6 +106,198 @@
 15) Use cookie-free domain components
 16) Gzip components.
 </pre>
+
+				<h3>Difference between HTML4 and HTML5</h3>
+				<pre>
+<b>HTML4</b>
+Doctype declaration is too longer
+Audio, video not part of HTML4
+Vector graphics is possible with the help of technologies such as VML, Silverlight, Flash etc
+Impossible to get true geolocation of user browsing any website especially comes to mobile devices
+Use cookies
+Not possible to draw shapes like circle, rectangle and triangle
+Doesnot allow JS to run in the browser. JS runs in the same thread as browser interface.
+Works with all the old browsers
+It's not mobile friendly
+No standarized process to handle strucurally incorrect HTML codes
+Offline storage support is not good
+
+<b>HTML5</b>
+Doctype is simple
+Audio and videos are integral part of HTML5
+Vector graphics is integral part of HTML5
+JS Geolocation API helps identify location of user browsing website(provided user allows it)
+It provides localstorage inplace of cookies
+You can draw rectangle, circle and triangle
+Allow JS to run in the background. This is possible due to JS Web worker API in HTML5
+Supported by all new major browsers
+It's Mobile friendly
+It supports persistent error handling via improvised error handling process.
+New Semantic elements added(Header, section, aside, article, footer)
+Offline storage support is good
+HTML5 API- Geolocation, Drag/Drop, Web storage, Web workers, Server-Sent Events(SSE)
+
+<b>HTML Layout Elements</b>
+HTML has several semantic elements that define the different parts of a web page:
+&lt;header&gt; - Defines a header for a document or a section
+&lt;nav&gt; - Defines a set of navigation links
+&lt;section&gt; - Defines a section in a document
+&lt;article&gt; - Defines an independent, self-contained content
+&lt;aside&gt; - Defines content aside from the content (like a sidebar)
+&lt;footer&gt; - Defines a footer for a document or a section
+&lt;details&gt; - Defines additional details that the user can open and close on demand
+&lt;summary&gt; - Defines a heading for the &lt;details&gt; element
+</pre>
+
+				<h3>CSS</h3>
+				<pre>
+<b>CSS Box model</b>
+The CSS box defines the design and the layout of elements of CSS. The several elements are:
+Margin: transparent area outside border
+Border: the padding and content option with a border around it is shown.
+Padding: Space is around content. Padding is transparent.
+Content: box where text and images appear.
+e.g.:
+div{
+	width: 300px;
+	border: 25px solid  yellow;
+	padding: 25px;
+	margin:  25px;
+}
+
+<b>Various Media types used</b>
+Aural – for sound synthesizers and speech
+Print – gives a preview of the content when printed
+Projection- projects the CSS on projectors.
+Handheld- uses handheld devices.
+Screen- computers and laptop screens.
+
+<b>What is Pseudo elements and Pseudo classes?</b>
+Pseudo-elements are keyword added to the selector that allows one o style a specific part of the selected element.
+1) To style the first letter, line or element
+2) To insert a content
+<i>Syntax</i>
+Selector: :pseudo-element {
+	property1 :value;
+	property2 :value;	
+}
+Example: ::after, ::before
+
+A pseudo-class is used to define a special state of an element.You can use them for
+1) Style an element when someone mouses over it
+2) Style visited and unvisited links differently
+3) Style an element when it gets focus
+
+<i>Syntax</i>
+selector:pseudo-class {
+	property: value;
+}
+Example: a:hover, a:visited
+
+<b>HTML Layout Techniques</b>
+There are four different techniques to create multicolumn layouts. Each technique has its pros and cons:
+1) CSS framework: Bootstrap, Foundation, Bulma, etc..
+2) CSS float property: Float: left/right/none/inherit and Clear
+3) CSS flexbox: To start using the Flexbox model, you need to first define a flex container.
+The flex container properties are:
+flex-direction
+flex-wrap
+flex-flow
+justify-content
+align-items
+align-content
+
+4) CSS grid: Many web pages are based on a grid-view, which means that the page is divided into columns.
+A responsive grid-view often has 12 columns, and has a total width of 100%, and will shrink and expand as you resize the browser window.
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+<b>Media Queries</b>
+Media query is a CSS technique introduced in CSS3.
+It uses the @media rule to include a block of CSS properties only if a certain condition is true.
+If the browser window is 600px or smaller, the background color will be lightblue:
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+	[class*="col-"] {
+	  width: 100%;
+	}
+  }
+
+<b>Always Design for Mobile First</b>
+Mobile First means designing for mobile before designing for desktop or any other device (This will make the page display faster on smaller devices).
+This means that we must make some changes in our CSS.
+Instead of changing styles when the width gets smaller than 768px, we should change the design when the width gets larger than 768px. 
+This will make our design Mobile First.
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+}
+
+<b>Have you used Flexbox & CSS Grid before? What are the differences between them?</b>
+Flexbox is a very useful layout tool, especially for smaller areas within the site. 
+Its main features are to align items in horizontal or vertical axes, space them out automatically, 
+invert the order in which they’re displayed, along with a few other layout options.
+
+CSS Grid is more of a layout tool for the entire page. While Flexbox excels in laying out items along a single axis, 
+Grid is better for layouts with both horizontal and vertical axes, i.e. grids!
+
+<b>What is CSS preprocessor?</b>
+CSS preprocessors are scripting languages that extend the default capabilities of CSS. 
+They enable us to use logic in our CSS code, such as variables, nesting, inheritance, mixins, functions, and mathematical operations. 
+CSS preprocessors make it easy to automate repetitive tasks, 
+reduce the number of errors and code bloat, create reusable code snippets, and ensure backward compatibility.
+
+<b>Variables</b>
+$primary-font-stack: 'Helvetica', sans-serif;
+$primary-color: #fccd48;
+
+body {
+    color: $primary-color;
+    font-family: $primary-font-stack;
+}
+
+<b>functions/mixins</b>
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+       -moz-border-radius: $radius;
+        -ms-border-radius: $radius;
+            border-radius: $radius;
+}
+
+.box {
+    @include border-radius(10px);
+}
+
+</pre>
+
+
+
 
 				<h3>Programmming paradigms</h3>
 				<pre>
@@ -165,6 +386,50 @@ class Car {
 		console.log(this.maker + " costs : " + this.price);
 	}
 }
+</pre>
+
+				<h3>Closures</h3>
+				<pre>
+A closure is the combination of a function bundled together (enclosed) with references to its surrounding state (the lexical environment). 
+In other words, a closure gives you access to an outer function’s scope from an inner function. In JavaScript, 
+closures are created every time a function is created, at function creation time.
+</pre>
+
+				<h3>Call, apply and bind</h3>
+				<pre>
+You can use call()/apply() to invoke the function immediately. 
+bind() returns a bound function that, when executed later.
+
+// <b>Call</b>
+var obj = {name:"Goutam"};
+var greeting = function(a,b,c){
+	return "welcome "+this.name+" to "+a+" "+b+" in "+c;
+};
+console.log(greeting.call(obj,"Newtown","Bengaluru","Karnataka"));
+// returns output as welcome Goutam to Newtown Bengaluru in Karnataka
+
+// <b>Apply</b>
+var obj = {name:"Goutam"};
+var greeting = function(a,b,c){
+    return "welcome "+this.name+" to "+a+" "+b+" in "+c;
+};
+var args = ["Newtown","Bengaluru","Karnataka"];  
+console.log("Output using .apply() below ")
+console.log(greeting.apply(obj,args));
+// returns output as welcome Goutam to Newtown Bengaluru in Karnataka
+
+// <b>Bind</b>
+var obj = {name:"Niladri"};
+var greeting = function(a,b,c){
+    return "welcome "+this.name+" to "+a+" "+b+" in "+c;
+};
+//creates a bound function that has same body and parameters 
+var bound = greeting.bind(obj); 
+console.dir(bound); ///returns a function
+console.log("Output using .bind() below ");
+console.log(bound("Newtown","KOLKATA","WB")); //call the bound function
+// returns output as welcome Goutam to Newtown Bengaluru in Karnataka
+
 </pre>
 
 				<h3>Observables and Promises</h3>
